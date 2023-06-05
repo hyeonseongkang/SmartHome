@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "508253605905",
+    "project_id": "smarthome-2c779",
+    "storage_bucket": "smarthome-2c779.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508253605905:android:7be42382db4120f52ba1b0",
+        "android_client_info": {
+          "package_name": "com.example.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508253605905-27gu4k21bqkspcgn0671g50atkml3n54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzqf24kbHB_Cj285_egrvmceaChJBMQFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508253605905-27gu4k21bqkspcgn0671g50atkml3n54.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
