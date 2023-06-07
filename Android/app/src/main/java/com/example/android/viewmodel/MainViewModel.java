@@ -17,6 +17,7 @@ public class MainViewModel extends AndroidViewModel {
    private DatabaseReference ledRef;
 
    private LiveData<String> ledValue;
+   private LiveData<String> temperatureValue;
 
 
    public MainViewModel(@NonNull Application application) {
@@ -24,12 +25,15 @@ public class MainViewModel extends AndroidViewModel {
       repository = new MainRepository();
       ledRef = FirebaseDatabase.getInstance().getReference("led");
       ledValue = repository.getLedLiveData();
+      temperatureValue = repository.getTemperatureLiveData();
 
    }
 
    public LiveData<String> getLedLiveData() {
       return ledValue;
    }
+
+   public LiveData<String> getTemperatureLiveData() {return  temperatureValue; }
 
    public void turnOnLed(String led) {
       ledRef.setValue(led);
