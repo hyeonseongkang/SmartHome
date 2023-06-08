@@ -13,15 +13,19 @@ public class MainRepository {
 
    private DatabaseReference ledRef;
    private DatabaseReference temperatureRef;
+   private DatabaseReference doorRef;
 
    private MutableLiveData<String> ledValue;
    private MutableLiveData<String> temperatureValue;
+   private MutableLiveData<Boolean> doorValue;
 
    public MainRepository() {
       ledRef = FirebaseDatabase.getInstance().getReference("led");
       temperatureRef = FirebaseDatabase.getInstance().getReference("temperature");
+      doorRef = FirebaseDatabase.getInstance().getReference("door");
       ledValue = new MutableLiveData<>();
       temperatureValue = new MutableLiveData<>();
+      doorValue = new MutableLiveData<>();
    }
 
    public MutableLiveData<String> getLedLiveData() {
@@ -29,6 +33,8 @@ public class MainRepository {
    }
 
    public MutableLiveData<String> getTemperatureLiveData() { return  temperatureValue; }
+
+   public MutableLiveData<Boolean> getDoorLiveData() { return doorValue; }
 
    public void getLed() {
       ledRef.addValueEventListener(new ValueEventListener() {
@@ -51,6 +57,21 @@ public class MainRepository {
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             String temperature = snapshot.getValue(String.class);
             temperatureValue.setValue(temperature);
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+   }
+
+   public void getDoor() {
+      doorRef.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            Boolean doorState = snapshot.getValue(Boolean.class);
+            doorValue.setValue(doorState);
          }
 
          @Override
