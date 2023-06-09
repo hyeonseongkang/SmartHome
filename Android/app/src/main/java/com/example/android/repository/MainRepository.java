@@ -14,18 +14,22 @@ public class MainRepository {
    private DatabaseReference ledRef;
    private DatabaseReference temperatureRef;
    private DatabaseReference doorRef;
+   private DatabaseReference oledRef;
 
    private MutableLiveData<String> ledValue;
    private MutableLiveData<String> temperatureValue;
    private MutableLiveData<Boolean> doorValue;
+   private MutableLiveData<String> oledMessageValue;
 
    public MainRepository() {
       ledRef = FirebaseDatabase.getInstance().getReference("led");
       temperatureRef = FirebaseDatabase.getInstance().getReference("temperature");
       doorRef = FirebaseDatabase.getInstance().getReference("door");
+      oledRef = FirebaseDatabase.getInstance().getReference("oled");
       ledValue = new MutableLiveData<>();
       temperatureValue = new MutableLiveData<>();
       doorValue = new MutableLiveData<>();
+      oledMessageValue = new MutableLiveData<>();
    }
 
    public MutableLiveData<String> getLedLiveData() {
@@ -35,6 +39,10 @@ public class MainRepository {
    public MutableLiveData<String> getTemperatureLiveData() { return  temperatureValue; }
 
    public MutableLiveData<Boolean> getDoorLiveData() { return doorValue; }
+
+   public MutableLiveData<String> getOLEDMessageLiveData() {
+      return oledMessageValue;
+   }
 
    public void getLed() {
       ledRef.addValueEventListener(new ValueEventListener() {
@@ -72,6 +80,21 @@ public class MainRepository {
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             Boolean doorState = snapshot.getValue(Boolean.class);
             doorValue.setValue(doorState);
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+   }
+
+   public void readMessageOLED() {
+      oledRef.addListenerForSingleValueEvent(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            String message = snapshot.getValue(String.class);
+            oledMessageValue.setValue(message);
          }
 
          @Override

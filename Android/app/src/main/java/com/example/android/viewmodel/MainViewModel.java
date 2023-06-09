@@ -18,10 +18,12 @@ public class MainViewModel extends AndroidViewModel {
 
    private DatabaseReference doorRef;
 
+   private DatabaseReference oledRef;
+
    private LiveData<String> ledValue;
    private LiveData<String> temperatureValue;
-
    private LiveData<Boolean> doorValue;
+   private LiveData<String> oledMessageValue;
 
 
    public MainViewModel(@NonNull Application application) {
@@ -29,9 +31,11 @@ public class MainViewModel extends AndroidViewModel {
       repository = new MainRepository();
       ledRef = FirebaseDatabase.getInstance().getReference("led");
       doorRef = FirebaseDatabase.getInstance().getReference("door");
+      oledRef = FirebaseDatabase.getInstance().getReference("oled");
       ledValue = repository.getLedLiveData();
       temperatureValue = repository.getTemperatureLiveData();
       doorValue = repository.getDoorLiveData();
+      oledMessageValue = repository.getOLEDMessageLiveData();
 
    }
 
@@ -42,6 +46,8 @@ public class MainViewModel extends AndroidViewModel {
    public LiveData<String> getTemperatureLiveData() {return  temperatureValue; }
 
    public LiveData<Boolean> getDoorLiveData() { return doorValue; }
+
+   public LiveData<String> getOLEDMessageLiveData() { return  oledMessageValue; }
 
    public void turnOnLed(String led) {
       ledRef.setValue(led);
@@ -61,5 +67,13 @@ public class MainViewModel extends AndroidViewModel {
 
    public void closeDoor() {
       doorRef.setValue(false);
+   }
+
+   public void writeMessageOLED(String message) {
+      oledRef.setValue(message);
+   }
+
+   public void readMessageOLED() {
+      repository.readMessageOLED();
    }
 }
