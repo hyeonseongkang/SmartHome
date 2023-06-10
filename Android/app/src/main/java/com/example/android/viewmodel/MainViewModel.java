@@ -76,4 +76,6 @@ public class MainViewModel extends AndroidViewModel {
    public void readMessageOLED() {
       repository.readMessageOLED();
    }
+
+
 }
