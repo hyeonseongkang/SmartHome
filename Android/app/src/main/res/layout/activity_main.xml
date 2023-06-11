@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello, JBNU!"
+                android:text="Hello, TEST!"
                 android:textColor="#FFFFFF"
                 android:layout_toRightOf="@+id/profileImage"
                 android:layout_centerVertical="true"
@@ -154,12 +154,15 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
                     <ImageView
                         android:id="@+id/image"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:background="@drawable/lamp4"
                         android:scaleType="fitXY" />
 
@@ -172,7 +175,7 @@
                         android:fontFamily="@font/scd5"
                         android:text="전등1"
                         android:textColor="#000000"
-                        android:textSize="17dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/light1State"
@@ -184,7 +187,7 @@
                         android:fontFamily="@font/scd5"
                         android:text="OFF"
                         android:textColor="#000000"
-                        android:textSize="17dp" />
+                        android:textSize="14dp" />
                 </RelativeLayout>
 
 
@@ -200,12 +203,15 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
                     <ImageView
                         android:id="@+id/image2"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:background="@drawable/lamp4"
                         android:scaleType="fitXY" />
 
@@ -218,7 +224,7 @@
                         android:fontFamily="@font/scd5"
                         android:text="전등2"
                         android:textColor="#000000"
-                        android:textSize="17dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/light2State"
@@ -230,7 +236,7 @@
                         android:fontFamily="@font/scd5"
                         android:text="OFF"
                         android:textColor="#000000"
-                        android:textSize="17dp" />
+                        android:textSize="14dp" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -244,12 +250,15 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
                     <ImageView
                         android:id="@+id/image3"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:background="@drawable/door2"
                         android:scaleType="fitXY" />
 
@@ -262,7 +271,7 @@
                         android:fontFamily="@font/scd5"
                         android:text="현관문"
                         android:textColor="#000000"
-                        android:textSize="17dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/doorState"
@@ -274,7 +283,7 @@
                         android:fontFamily="@font/scd5"
                         android:text="CLOSE"
                         android:textColor="#000000"
-                        android:textSize="17dp" />
+                        android:textSize="14dp" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
