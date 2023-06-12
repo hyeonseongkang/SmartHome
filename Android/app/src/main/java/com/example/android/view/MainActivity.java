@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.example.android.Model.Led;
 import com.example.android.R;
 import com.example.android.databinding.ActivityMainBinding;
 import com.example.android.viewmodel.MainViewModel;
@@ -32,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
     void init(){
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
+        viewModel.getLed();
     }
 
     void initObserve() {
-        viewModel.getLedLiveData().observe(this, new Observer<String>() {
+        viewModel.getLedLiveData().observe(this, new Observer<Led>() {
             @Override
-            public void onChanged(String s) {
+            public void onChanged(Led led) {
 
             }
         });
@@ -69,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
         binding.light1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                viewModel.setLed("Red");
             }
         });
 
         binding.light2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                viewModel.setLed("Blue");
             }
         });
 

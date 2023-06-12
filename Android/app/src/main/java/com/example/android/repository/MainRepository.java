@@ -3,6 +3,7 @@ package com.example.android.repository;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.android.Model.Led;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,7 +17,7 @@ public class MainRepository {
    private DatabaseReference doorRef;
    private DatabaseReference oledRef;
 
-   private MutableLiveData<String> ledValue;
+   private MutableLiveData<Led> ledValue;
    private MutableLiveData<String> temperatureValue;
    private MutableLiveData<Boolean> doorValue;
    private MutableLiveData<String> oledMessageValue;
@@ -32,7 +33,7 @@ public class MainRepository {
       oledMessageValue = new MutableLiveData<>();
    }
 
-   public MutableLiveData<String> getLedLiveData() {
+   public MutableLiveData<Led> getLedLiveData() {
       return ledValue;
    }
 
@@ -48,7 +49,7 @@ public class MainRepository {
       ledRef.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
-            String led = snapshot.getValue(String.class);
+            Led led = snapshot.getValue(Led.class);
             ledValue.setValue(led);
          }
 

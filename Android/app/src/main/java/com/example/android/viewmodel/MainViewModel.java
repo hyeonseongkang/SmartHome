@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.android.Model.Led;
 import com.example.android.repository.MainRepository;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +21,7 @@ public class MainViewModel extends AndroidViewModel {
 
    private DatabaseReference oledRef;
 
-   private LiveData<String> ledValue;
+   private LiveData<Led> ledValue;
    private LiveData<String> temperatureValue;
    private LiveData<Boolean> doorValue;
    private LiveData<String> oledMessageValue;
@@ -39,7 +40,7 @@ public class MainViewModel extends AndroidViewModel {
 
    }
 
-   public LiveData<String> getLedLiveData() {
+   public LiveData<Led> getLedLiveData() {
       return ledValue;
    }
 
@@ -49,25 +50,33 @@ public class MainViewModel extends AndroidViewModel {
 
    public LiveData<String> getOLEDMessageLiveData() { return  oledMessageValue; }
 
-   public void turnOnLed(String led) {
-      ledRef.setValue(led);
+   public void setLed(String led) {
+      Led ledList = ledValue.getValue();
+      if (ledList.getRedLed().equals(led)) {
+         if (ledList.getRedLedState()) {
+            ledList.setRedLedState(false);
+         } else {
+            ledList.setRedLedState(true);
+         }
+      } else {
+         if (ledList.getBlueLedState()) {
+            ledList.setBlueLedState(false);
+         } else {
+            ledList.setBlueLedState(true);
+         }
+      }
+      ledRef.setValue(ledList);
    }
 
-   public void turnOffLed(String led) {
-      ledRef.setValue(led);
-   }
 
    public void getLed() {
       repository.getLed();
    }
 
-   public void openDoor() {
+   public void setDoor() {
       doorRef.setValue(true);
    }
 
-   public void closeDoor() {
-      doorRef.setValue(false);
-   }
 
    public void writeMessageOLED(String message) {
       oledRef.setValue(message);
