@@ -34,20 +34,42 @@ public class MainActivity extends AppCompatActivity {
     void init(){
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.getLed();
+        viewModel.getDoor();
+        viewModel.getOLEDMessageLiveData();
     }
 
     void initObserve() {
         viewModel.getLedLiveData().observe(this, new Observer<Led>() {
             @Override
             public void onChanged(Led led) {
+                String on = "ON";
+                String off = "OFF";
+                if (led.getRedLedState()) {
+                    binding.light1State.setText(on);
+                } else {
+                    binding.light1State.setText(off);
+                }
 
+                if (led.getBlueLedState()) {
+                    binding.light2State.setText(on);
+                } else {
+                    binding.light2State.setText(off);
+                }
             }
         });
 
         viewModel.getDoorLiveData().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-
+                String open = "OPEN";
+                String close = "CLOSE";
+                if (aBoolean) {
+                    binding.doorTextView.setText(open);
+                    binding.doorState.setText(open);
+                } else {
+                    binding.doorTextView.setText(close);
+                    binding.doorState.setText(close);
+                }
             }
         });
 
@@ -84,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         binding.door.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                viewModel.setDoor();
             }
         });
     }

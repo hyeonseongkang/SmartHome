@@ -74,7 +74,17 @@ public class MainViewModel extends AndroidViewModel {
    }
 
    public void setDoor() {
-      doorRef.setValue(true);
+      boolean doorState = doorValue.getValue();
+      if (doorState) {
+         doorState = false;
+      } else {
+         doorState = true;
+      }
+      doorRef.setValue(doorState);
+   }
+
+   public void getDoor() {
+      repository.getDoor();
    }
 
 
