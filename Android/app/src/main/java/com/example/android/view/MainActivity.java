@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.android.model.Led;
 import com.example.android.databinding.ActivityMainBinding;
+import com.example.android.model.Out;
 import com.example.android.util.RxAndroidUtils;
 import com.example.android.viewmodel.MainViewModel;
 
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getLed();
         viewModel.getDoor();
         viewModel.readMessageOLED();
-
+        viewModel.getTemperature();
+        viewModel.getSafeMode();
     }
 
     void initObserve() {
@@ -52,16 +54,16 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(Led led) {
                 String on = "ON";
                 String off = "OFF";
-                if (led.getRedLedState()) {
-                    binding.light1State.setText(on);
+                if (led.isRed()) {
+                    binding.redLed.setText(on);
                 } else {
-                    binding.light1State.setText(off);
+                    binding.redLed.setText(off);
                 }
 
-                if (led.getBlueLedState()) {
-                    binding.light2State.setText(on);
+                if (led.isBlue()) {
+                    binding.blueLed.setText(on);
                 } else {
-                    binding.light2State.setText(off);
+                    binding.blueLed.setText(off);
                 }
             }
         });
@@ -84,14 +86,32 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getTemperatureLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-
+                binding.temperature.setText(s);
             }
         });
 
         viewModel.getOLEDMessageLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                binding.OLEDText.setText(s);
+
+            }
+        });
+
+        viewModel.getOutLiveData().observe(this, new Observer<Out>() {
+            @Override
+            public void onChanged(Out out) {
+                String yes = "YES";
+                String no = "NO";
+                if (out.isMode()) {
+                    binding.outText.setText(yes);
+                    binding.outState.setText(yes);
+                } else {
+                    binding.outText.setText(no);
+                    binding.outState.setText(no);
+                }
+                if (out.isDetection()) {
+                    viewModel.showNotification();
+                }
             }
         });
     }
@@ -100,14 +120,14 @@ public class MainActivity extends AppCompatActivity {
         binding.light1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.setLed("Red");
+                viewModel.setBlueLed();
             }
         });
 
         binding.light2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.setLed("Blue");
+                viewModel.setRedLed();
             }
         });
 
@@ -117,6 +137,15 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.setDoor();
             }
         });
+
+        binding.out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.setSafeMode();
+            }
+        });
+
+
     }
 
     @SuppressLint("CheckResult")
@@ -128,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(s -> {
                     Log.d(RxAndroidUtils.getInstance().getTag(), s);
                     String inputText = binding.message.getText().toString();
-                    Log.d(RxAndroidUtils.getInstance().getTag() + "!@!@", inputText);
                     viewModel.writeMessageOLED(inputText);
                 });
     }

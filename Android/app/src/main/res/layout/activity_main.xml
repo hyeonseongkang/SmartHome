@@ -44,8 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@+id/top"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+
             android:layout_marginTop="40dp">
 
             <RelativeLayout
@@ -57,19 +56,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OLED"
+                    android:text="외출"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/scd7"/>
 
                 <TextView
-                    android:id="@+id/OLEDText"
+                    android:id="@+id/outText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/scd7"
-                    android:text="MESSAGE"
+                    android:text="OUT"
                     android:textColor="#FFFFFF"
                     android:textSize="17dp" />
 
@@ -84,13 +83,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TEMPERATURE"
+                    android:text="온도"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/scd7"/>
 
                 <TextView
+                    android:id="@+id/temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -110,7 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DOOR"
+                    android:text="현관문"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp"
                     android:layout_centerHorizontal="true"
@@ -180,7 +180,7 @@
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/light1State"
+                        android:id="@+id/blueLed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -229,7 +229,7 @@
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/light2State"
+                        android:id="@+id/redLed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -284,6 +284,53 @@
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/scd5"
                         android:text="CLOSE"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/image4"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/safe"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/image4"
+                        android:fontFamily="@font/scd5"
+                        android:text="외출"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/outState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/scd5"
+                        android:text="OUT"
                         android:textColor="#000000"
                         android:textSize="14dp" />
                 </RelativeLayout>

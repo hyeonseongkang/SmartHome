@@ -1,50 +1,31 @@
 package com.example.android.model;
 
 public class Led {
-   String redLed;
-   boolean redLedState;
+   boolean red;
+   boolean blue;
 
-   String blueLed;
-   boolean blueLedState;
 
    public Led(){}
 
-   public Led(String redLed, boolean redLedState, String blueLed, boolean blueLedState) {
-      this.redLed = redLed;
-      this.redLedState = redLedState;
-      this.blueLed = blueLed;
-      this.blueLedState = blueLedState;
+   public Led(boolean red, boolean blue, String blueLed, boolean blueLedState) {
+      this.red = red;
+      this.blue = blue;
+
    }
 
-   public String getRedLed() {
-      return redLed;
+   public boolean isRed() {
+      return red;
    }
 
-   public void setRedLed(String redLed) {
-      this.redLed = redLed;
+   public void setRed(boolean red) {
+      this.red = red;
    }
 
-   public boolean getRedLedState() {
-      return redLedState;
+   public boolean isBlue() {
+      return blue;
    }
 
-   public void setRedLedState(boolean redLedState) {
-      this.redLedState = redLedState;
-   }
-
-   public String getBlueLed() {
-      return blueLed;
-   }
-
-   public void setBlueLed(String blueLed) {
-      this.blueLed = blueLed;
-   }
-
-   public boolean getBlueLedState() {
-      return blueLedState;
-   }
-
-   public void setBlueLedState(boolean blueLedState) {
-      this.blueLedState = blueLedState;
+   public void setBlue(boolean blue) {
+      this.blue = blue;
    }
 }

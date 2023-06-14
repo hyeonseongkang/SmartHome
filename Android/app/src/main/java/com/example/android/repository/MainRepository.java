@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.model.Led;
+import com.example.android.model.Out;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,21 +17,25 @@ public class MainRepository {
    private DatabaseReference temperatureRef;
    private DatabaseReference doorRef;
    private DatabaseReference oledRef;
+   private DatabaseReference outRef;
 
    private MutableLiveData<Led> ledValue;
    private MutableLiveData<String> temperatureValue;
    private MutableLiveData<Boolean> doorValue;
    private MutableLiveData<String> oledMessageValue;
+   private MutableLiveData<Out> outValue;
 
    public MainRepository() {
       ledRef = FirebaseDatabase.getInstance().getReference("led");
       temperatureRef = FirebaseDatabase.getInstance().getReference("temperature");
       doorRef = FirebaseDatabase.getInstance().getReference("door");
       oledRef = FirebaseDatabase.getInstance().getReference("oled");
+      outRef = FirebaseDatabase.getInstance().getReference("out");
       ledValue = new MutableLiveData<>();
       temperatureValue = new MutableLiveData<>();
       doorValue = new MutableLiveData<>();
       oledMessageValue = new MutableLiveData<>();
+      outValue = new MutableLiveData<>();
    }
 
    public MutableLiveData<Led> getLedLiveData() {
@@ -44,6 +49,8 @@ public class MainRepository {
    public MutableLiveData<String> getOLEDMessageLiveData() {
       return oledMessageValue;
    }
+
+   public MutableLiveData<Out> getOutLiveData() { return outValue; }
 
    public void getLed() {
       ledRef.addValueEventListener(new ValueEventListener() {
@@ -61,7 +68,7 @@ public class MainRepository {
    }
 
    public void getTemperature() {
-      temperatureRef.addListenerForSingleValueEvent(new ValueEventListener() {
+      temperatureRef.child("value").addListenerForSingleValueEvent(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             String temperature = snapshot.getValue(String.class);
@@ -96,6 +103,21 @@ public class MainRepository {
          public void onDataChange(@NonNull DataSnapshot snapshot) {
             String message = snapshot.getValue(String.class);
             oledMessageValue.setValue(message);
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+      });
+   }
+
+   public void getSafeMode() {
+      outRef.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            Out out = snapshot.getValue(Out.class);
+            outValue.setValue(out);
          }
 
          @Override
