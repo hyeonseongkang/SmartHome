@@ -64,6 +64,7 @@
                     android:fontFamily="@font/scd7"/>
 
                 <TextView
+                    android:id="@+id/OLEDText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -96,7 +97,7 @@
                     android:fontFamily="@font/scd7"
                     android:text="36ºC"
                     android:textColor="#FFFFFF"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp" />
 
             </RelativeLayout>
 

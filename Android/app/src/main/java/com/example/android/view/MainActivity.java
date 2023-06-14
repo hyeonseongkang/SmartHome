@@ -4,14 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 
-import com.example.android.Model.Led;
-import com.example.android.R;
+import com.example.android.model.Led;
 import com.example.android.databinding.ActivityMainBinding;
+import com.example.android.util.RxAndroidUtils;
 import com.example.android.viewmodel.MainViewModel;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,13 +35,15 @@ public class MainActivity extends AppCompatActivity {
         init();
         initObserve();
         initListener();
+        initUtil();
     }
 
     void init(){
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.getLed();
         viewModel.getDoor();
-        viewModel.getOLEDMessageLiveData();
+        viewModel.readMessageOLED();
+
     }
 
     void initObserve() {
@@ -83,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getOLEDMessageLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-
+                binding.OLEDText.setText(s);
             }
         });
     }
@@ -109,6 +117,20 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.setDoor();
             }
         });
+    }
+
+    @SuppressLint("CheckResult")
+    void initUtil() {
+        Observable<String> editTextObservable = RxAndroidUtils.getInstance().getEditTextObservable(binding.message);
+        editTextObservable
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    Log.d(RxAndroidUtils.getInstance().getTag(), s);
+                    String inputText = binding.message.getText().toString();
+                    Log.d(RxAndroidUtils.getInstance().getTag() + "!@!@", inputText);
+                    viewModel.writeMessageOLED(inputText);
+                });
     }
 
 
