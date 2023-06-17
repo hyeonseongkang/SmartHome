@@ -1,6 +1,7 @@
 package com.example.android.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.android.R;
+import com.example.android.model.DeviceController;
 import com.example.android.model.Led;
 import com.example.android.databinding.ActivityMainBinding;
 import com.example.android.model.Out;
@@ -24,14 +27,15 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+    DeviceController deviceController;
+
     MainViewModel viewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         init();
         initObserve();
@@ -46,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         viewModel.readMessageOLED();
         viewModel.getTemperature();
         viewModel.getSafeMode();
+
+        deviceController = new DeviceController();
     }
 
     void initObserve() {
@@ -56,15 +62,21 @@ public class MainActivity extends AppCompatActivity {
                 String off = "OFF";
                 if (led.isRed()) {
                     binding.redLed.setText(on);
+                    led.setRed(true);
                 } else {
                     binding.redLed.setText(off);
+                    led.setRed(false);
                 }
 
                 if (led.isBlue()) {
                     binding.blueLed.setText(on);
+                    led.setBlue(true);
                 } else {
                     binding.blueLed.setText(off);
+                    led.setBlue(false);
                 }
+
+                deviceController.setLed(led);
             }
         });
 
@@ -76,10 +88,14 @@ public class MainActivity extends AppCompatActivity {
                 if (aBoolean) {
                     binding.doorTextView.setText(open);
                     binding.doorState.setText(open);
+                    deviceController.setDoor(open);
                 } else {
                     binding.doorTextView.setText(close);
                     binding.doorState.setText(close);
+                    deviceController.setDoor(close);
                 }
+
+
             }
         });
 
@@ -87,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 binding.temperature.setText(s);
+                deviceController.setTemperature(s);
             }
         });
 
@@ -105,13 +122,16 @@ public class MainActivity extends AppCompatActivity {
                 if (out.isMode()) {
                     binding.outText.setText(yes);
                     binding.outState.setText(yes);
+                    out.setMode(true);
                 } else {
                     binding.outText.setText(no);
                     binding.outState.setText(no);
+                    out.setMode(false);
                 }
                 if (out.isDetection()) {
                     viewModel.showNotification();
                 }
+                deviceController.setOut(out);
             }
         });
     }
