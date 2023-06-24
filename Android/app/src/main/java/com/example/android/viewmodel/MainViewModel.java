@@ -73,52 +73,28 @@ public class MainViewModel extends AndroidViewModel {
    public LiveData<Out> getOutLiveData() { return outValue; }
 
    public void setRedLed() {
-      Led led = ledValue.getValue();
-      assert led != null;
-      if (led.isRed()) {
-         led.setRed(false);
-      } else {
-         led.setRed(true);
-      }
-      ledRef.setValue(led);
+      ledRef.child("red").setValue(ledValue.getValue().isRed() ? false : true);
    }
 
    public void setBlueLed() {
-      Led led = ledValue.getValue();
-      assert led != null;
-      if (led.isBlue()) {
-         led.setBlue(false);
-      } else {
-         led.setBlue(true);
-      }
-      ledRef.setValue(led);
+      ledRef.child("blue").setValue(ledValue.getValue().isBlue() ? false : true);
    }
-
 
    public void getLed() {
       repository.getLed();
    }
 
    public void setDoor() {
-      boolean doorState = doorValue.getValue();
-      if (doorState) {
-         doorState = false;
-      } else {
-         doorState = true;
-      }
-      doorRef.setValue(doorState);
+      doorRef.setValue(!doorValue.getValue());
    }
 
    public void setSafeMode() {
       Out safeMode = outValue.getValue();
-      if (safeMode.isMode()) {
-         safeMode.setMode(false);
-         safeMode.setDetection(false);
-      } else {
-         safeMode.setMode(true);
-      }
+      safeMode.setMode(!safeMode.isMode());
+      safeMode.setDetection(false);
       outRef.setValue(safeMode);
    }
+
 
    public void getDoor() {
       repository.getDoor();
